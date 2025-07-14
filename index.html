@@ -106,12 +106,94 @@ const optativasGeneral = [
 ];
 
 const itinerarios = {
-  "Arte Antiguo": { fixed:["La Ciudad en la Antigüedad","Arte Antiguo de la Península Ibérica","Arte de la India y del Asia Oriental","Arte Indígena Americano","Historia de la Arqueología y del Coleccionismo de Antigüedades","Iconografía Clásica"], opt3:true, opt4:3 },
-  "Arte Medieval": { fixed:["Paleografía y Diplomática","Pintura y Sociedad en la Edad Media","Artes Suntuarias y del Libro en la Edad Media","Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Iconografía Medieval","Historia de la Música I"], opt3:true, opt4:1 },
-  "Edad Moderna": { fixed:["Paleografía y Diplomática","Arquitectura y Ciudad en la Edad Moderna","Arte y Sociedad en la Edad Moderna","Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna","Historia de la Música I"], opt3:true, opt4:1 },
-  "Arte Contemporáneo": { fixed:["Arquitectura y Modernidad","Arte Contemporáneo Latinoamericano","Goya","Picasso","Arte Español Siglo XX","Historia de la Música II"], opt3:true, opt4:3 },
-  "Museos": { fixed:["La Ciudad en la Antigüedad","Artes Suntuarias y del Libro en la Edad Media","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Arquitectura y Ciudad en la Edad Moderna","Velázquez","Arquitectura y Modernidad","Goya","Picasso","Historia de la Arqueología y del Coleccionismo de Antigüedades"], opt3:false, opt4:0 },
-  "Arte Español": { fixed:[], opt3:false, opt4:0, special:["Arte Antiguo de la Península Ibérica","Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna","Arte Contemporáneo Latinoamericano","Goya","Picasso","Arte Español Siglo XX","Prácticas Externas"] }
+  "Arte Antiguo": {
+    fixed: [
+      "La Ciudad en la Antigüedad",
+      "Arte Antiguo de la Península Ibérica",
+      "Arte de la India y del Asia Oriental",
+      "Arte Indígena Americano",
+      "Historia de la Arqueología y del Coleccionismo de Antigüedades",
+      "Iconografía Clásica"
+    ],
+    opt3: true,
+    opt4: 3
+  },
+  "Arte Medieval": {
+    fixed: [
+      "Paleografía y Diplomática",
+      "Pintura y Sociedad en la Edad Media",
+      "Artes Suntuarias y del Libro en la Edad Media",
+      "Arte, Peregrinación y Monacato en la Edad Media Hispana",
+      "Arte, Catedral y Ciudad en la Edad Media Hispana",
+      "Al-Ándalus: Ciudades, Mezquitas y Palacios",
+      "Iconografía Medieval",
+      "Historia de la Música I"
+    ],
+    opt3: true,
+    opt4: 1
+  },
+  "Edad Moderna": {
+    fixed: [
+      "Paleografía y Diplomática",
+      "Arquitectura y Ciudad en la Edad Moderna",
+      "Arte y Sociedad en la Edad Moderna",
+      "Arte Español del Renacimiento",
+      "Velázquez",
+      "Arte Barroco Español",
+      "Arte Hispanoamericano en la Edad Moderna",
+      "Historia de la Música I"
+    ],
+    opt3: true,
+    opt4: 1
+  },
+  "Arte Contemporáneo": {
+    fixed: [
+      "Arquitectura y Modernidad",
+      "Arte Contemporáneo Latinoamericano",
+      "Goya",
+      "Picasso",
+      "Arte Español Siglo XX",
+      "Historia de la Música II"
+    ],
+    opt3: true,
+    opt4: 3
+  },
+  "Museos": {
+    fixed: [
+      "La Ciudad en la Antigüedad",
+      "Artes Suntuarias y del Libro en la Edad Media",
+      "Arte, Catedral y Ciudad en la Edad Media Hispana",
+      "Al-Ándalus: Ciudades, Mezquitas y Palacios",
+      "Arquitectura y Ciudad en la Edad Moderna",
+      "Velázquez",
+      "Arquitectura y Modernidad",
+      "Goya",
+      "Picasso",
+      "Historia de la Arqueología y del Coleccionismo de Antigüedades"
+    ],
+    opt3: false,
+    opt4: 0
+  },
+  "Arte Español": {
+    fixed: [],
+    opt3: true,
+    opt4: 9,
+    special: [
+      "Arte Antiguo de la Península Ibérica",
+      "Arte, Peregrinación y Monacato en la Edad Media Hispana",
+      "Arte, Catedral y Ciudad en la Edad Media Hispana",
+      "Al-Ándalus: Ciudades, Mezquitas y Palacios",
+      "Arte Español del Renacimiento",
+      "Velázquez",
+      "Arte Barroco Español",
+      "Arte Hispanoamericano en la Edad Moderna",
+      "Arte Contemporáneo Latinoamericano",
+      "Goya",
+      "Picasso",
+      "Arte Español Siglo XX",
+      "Prácticas Externas"
+    ]
+  }
 };
 
 const cursosDiv = document.getElementById('cursos');
