@@ -6,49 +6,56 @@
   <title>Malla Interactiva – Historia del Arte</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{--bg-color:#fffafc;--card-color:#ffffff;--text-color:#2b2b2b;--border-color:#d6d6d6;--hover:#fceef0;--accent-color:#fbb1bd}
-    [data-theme="dark"]{--bg-color:#1c1c1e;--card-color:#2b2b2d;--text-color:#f3f3f3;--border-color:#444;--hover:#333336;--accent-color:#f88a99}
-    *{box-sizing:border-box}body{margin:0;padding:20px;font-family:'Quicksand',sans-serif;background:var(--bg-color);color:var(--text-color)}
-    h1{margin:0 0 4px;text-align:center;font-size:2rem;font-weight:700;color:var(--accent-color)}
-    h2#nombre-itinerario{text-align:center;font-weight:500;margin:0 0 20px;color:var(--text-color)}
-    .botonera{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:20px}
-    select,button{padding:10px 14px;border:2px solid var(--border-color);border-radius:12px;background:var(--card-color);color:var(--text-color);font:inherit;cursor:pointer}
-    button{background:var(--accent-color);color:#fff;font-weight:600}button:hover{opacity:.9}
-    .grid-cursos{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-    .curso{background:var(--card-color);border-radius:15px;padding:15px;box-shadow:0 2px 6px rgba(0,0,0,.06);max-height:78vh;overflow-y:auto}
-    .titulo-curso{margin-bottom:10px;font-size:1.2rem;font-weight:600;color:var(--accent-color)}
-    .asignatura,.opt-select{margin:6px 0;padding:8px 10px;background:var(--card-color);border:1px solid var(--border-color);border-radius:8px;transition:.2s}
-    .asignatura{cursor:pointer;font-weight:500}.asignatura:hover{background:var(--hover)}.asignatura.tachada{text-decoration:line-through;color:#aaa}
-    .opt-select select{width:100%;border:none;background:transparent;color:inherit;font-weight:500}
-    .primero{background:#fff0f0}.segundo{background:#f0faff}.tercero{background:#f0fff5}.cuarto{background:#fffce6}
-    .tfg{background:#fde4f0;padding:10px;border-radius:10px;text-align:center;font-weight:600;margin-top:8px}
-    @media print{.botonera{display:none!important}}
+    :root { --bg:#fffafc;--card:#fff;--txt:#2b2b2b;--border:#d6d6d6;--hover:#fceef0;--accent:#fbb1bd }
+    [data-theme="dark"] { --bg:#1c1c1e;--card:#2b2b2d;--txt:#f3f3f3;--border:#444;--hover:#333336;--accent:#f88a99 }
+    * { box-sizing:border-box; margin:0; padding:0 }
+    body { font-family:'Quicksand',sans-serif; background:var(--bg); color:var(--txt); padding:20px; height:100vh; overflow:hidden }
+    h1 { color:var(--accent); text-align:center; font-size:2rem; margin-bottom:4px }
+    #nombre-itinerario { text-align:center; margin-bottom:14px; font-weight:500 }
+    .botonera { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px }
+    select,button { padding:8px 12px; border:2px solid var(--border); border-radius:10px; background:var(--card); color:var(--txt); font:inherit; cursor:pointer }
+    button { background:var(--accent); color:#fff; font-weight:600 }
+    button:hover { opacity:.9 }
+    .grid { display:flex; gap:10px; height:calc(100vh - 200px); overflow-x:auto }
+    .curso { background:var(--card); border-radius:12px; box-shadow:0 2px 6px rgba(0,0,0,.06); padding:12px; min-width:250px; width:24% }
+    .titulo { font-weight:600; color:var(--accent); margin-bottom:6px }
+    .item,.opt { margin:4px 0; padding:6px 8px; border:1px solid var(--border); border-radius:6px; background:var(--card) }
+    .item { cursor:pointer } .item:hover { background:var(--hover) } .tach { text-decoration:line-through; color:#aaa }
+    .opt select { width:100%; border:none; background:transparent }
+    .tfg { background:#fde4f0; padding:6px; border-radius:6px; text-align:center; font-weight:600; margin-top:4px }
+    @media(max-width:768px) { body{overflow:auto} .grid{flex-direction:column;height:auto;overflow-x:hidden} .curso{width:100%} }
+    @media print { .botonera{display:none} .grid{overflow:visible;height:auto} body{overflow:visible;height:auto} }
   </style>
 </head>
 <body>
   <h1>Malla Grado Historia del Arte</h1>
   <h2 id="nombre-itinerario"></h2>
-
   <div class="botonera">
-    <select id="itinerario"></select>
-    <button onclick="buildMalla()">Actualizar</button>
-    <button onclick="resetMalla()">Reiniciar</button>
+    <select id="itin"></select>
+    <button onclick="build()">Actualizar</button>
+    <button onclick="reset()">Reiniciar</button>
     <button onclick="toggleTheme()">Tema</button>
-    <button onclick="window.print()">Descargar PDF</button>
+    <button onclick="window.print()">PDF</button>
   </div>
-
-  <div class="grid-cursos" id="cursos"></div>
-
+  <div class="grid" id="grid"></div>
 <script>
-// ---------- Datos base ----------
 const baseCursos = {
-  primero:["Arte Griego","Arte de las Primeras Civilizaciones","Arte Romano","Historia Antigua","Historia Medieval","Historia del Pensamiento I","Literatura Medieval","Literatura del Mundo Antiguo","Museografía y Museología","Técnicas Artísticas y Conservación"],
-  segundo:["Arte de la Baja Edad Media","Arte Bizantino y Arte Islámico","Arte Tardoantiguo y Altomedieval","Historia Contemporánea","Historia Moderna","Historia del Pensamiento II","Idioma Clásico o Moderno","Inicios del Arte Moderno","Literatura Contemporánea","Literatura Moderna"],
-  tercero:["Arte del Siglo XVI","Arte del Siglo XVII y Barroco","Arte de la Ilustración y del Siglo XIX","Arte de las Vanguardias","Arte desde 1945 a la Actualidad","Fuentes de la Historia del Arte","Historia del Cine","Patrimonio Histórico-Artístico","Teoría y Metodología"],
-  cuarto:[]
+  primero: [
+    "Arte Griego","Arte de las Primeras Civilizaciones","Arte Romano","Historia Antigua","Historia del Pensamiento y de las Ideas",
+    "Estéticas I","Historia Medieval","Literatura Medieval","Literatura del Mundo Antiguo","Museografía y Museología"
+  ],
+  segundo: [
+    "Arte Bizantino y Arte Islámico","Arte Tardoantiguo y Altomedieval","Historia Moderna","Idioma","Literatura Moderna",
+    "Arte de la Baja Edad Media","Historia del Pensamiento y de las Ideas Estéticas II","Historia Contemporánea","Inicios del Arte Moderno","Literatura Contemporánea"
+  ],
+  tercero: [
+    "Arte de la Ilustración y del Siglo XIX","Arte del Siglo XVI","Arte del Siglo XVII y Barroco Tardío","Fuentes de la Historia del Arte",
+    "Teoría y Metodología de la Historia del Arte","Arte de las Vanguardias","Arte desde 1945 a la actualidad","Historia del Cine",
+    "Patrimonio Histórico-Artístico y Gestión Cultural","Asignatura optativa"
+  ],
+  cuarto: []
 };
 
-// ---------- Optativas globales ----------
 const optativasGeneral = [
   "Al-Ándalus: Ciudades, Mezquitas y Palacios","Arquitectura y Ciudad en la Edad Moderna","Arquitectura y Modernidad",
   "Arte Antiguo de la Península Ibérica","Arte Barroco Español","Arte, Catedral y Ciudad en la Edad Media Hispana",
@@ -60,123 +67,135 @@ const optativasGeneral = [
   "Pintura y Sociedad en la Edad Media","Velázquez","Prácticas Externas"
 ];
 
-// ---------- Definición de itinerarios ----------
 const itinerarios = {
   "Arte Antiguo": {
-    fijo:["La Ciudad en la Antigüedad","Arte Antiguo de la Península Ibérica","Arte de la India y del Asia Oriental","Arte Indígena Americano","Historia de la Arqueología y del Coleccionismo de Antigüedades","Iconografía Clásica"],
-    opt3:1,opt4:3
+    fix3: [], opt3: 1,
+    fix4: ["La Ciudad en la Antigüedad","Arte Antiguo de la Península Ibérica","Arte de la India y del Asia Oriental",
+           "Arte Indígena Americano","Historia de la Arqueología y del Coleccionismo de Antigüedades","Iconografía Clásica"],
+    opt4: 3
   },
   "Arte Medieval": {
-    fijo:["Paleografía y Diplomática","Pintura y Sociedad en la Edad Media","Artes Suntuarias y del Libro en la Edad Media","Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Iconografía Medieval","Historia de la Música I"],
-    opt3:1,opt4:1
+    fix3: [], opt3: 1,
+    fix4: ["Paleografía y Diplomática","Pintura y Sociedad en la Edad Media","Artes Suntuarias y del Libro en la Edad Media",
+           "Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte, Catedral y Ciudad en la Edad Media Hispana",
+           "Al-Ándalus: Ciudades, Mezquitas y Palacios","Iconografía Medieval","Historia de la Música I"],
+    opt4: 1
   },
   "Edad Moderna": {
-    fijo:["Paleografía y Diplomática","Arquitectura y Ciudad en la Edad Moderna","Arte y Sociedad en la Edad Moderna","Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna","Historia de la Música I"],
-    opt3:1,opt4:1
+    fix3: [], opt3: 1,
+    fix4: ["Paleografía y Diplomática","Arquitectura y Ciudad en la Edad Moderna","Arte y Sociedad en la Edad Moderna",
+           "Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna",
+           "Historia de la Música I"],
+    opt4: 1
   },
   "Arte Contemporáneo": {
-    fijo:["Arquitectura y Modernidad","Arte Contemporáneo Latinoamericano","Goya","Picasso","Arte Español Siglo XX","Historia de la Música II"],
-    opt3:1,opt4:3
+    fix3: [], opt3: 1,
+    fix4: ["Arquitectura y Modernidad","Arte Contemporáneo Latinoamericano","Goya","Picasso",
+           "Arte Español Siglo XX","Historia de la Música II"],
+    opt4: 3
   },
   "Museos": {
-    fijo:["La Ciudad en la Antigüedad","Artes Suntuarias y del Libro en la Edad Media","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Arquitectura y Ciudad en la Edad Moderna","Velázquez","Arquitectura y Modernidad","Goya","Picasso","Historia de la Arqueología y del Coleccionismo de Antigüedades"],
-    opt3:0,opt4:0
+    fix3: ["La Ciudad en la Antigüedad"], opt3: 0,
+    fix4: ["Artes Suntuarias y del Libro en la Edad Media","Arte, Catedral y Ciudad en la Edad Media Hispana",
+           "Al-Ándalus: Ciudades, Mezquitas y Palacios","Arquitectura y Ciudad en la Edad Moderna","Velázquez",
+           "Arquitectura y Modernidad","Goya","Picasso","Historia de la Arqueología y del Coleccionismo de Antigüedades"],
+    opt4: 0
   },
   "Arte Español": {
-    fijo:[], // todo optativo
-    opt3:1,opt4:9,
-    especial:["Arte Antiguo de la Península Ibérica","Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios","Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna","Arte Contemporáneo Latinoamericano","Goya","Picasso","Arte Español Siglo XX","Prácticas Externas"]
+    fix3: [], opt3: 1, fix4: [], opt4: 9,
+    special: ["Arte Antiguo de la Península Ibérica","Arte, Peregrinación y Monacato en la Edad Media Hispana",
+              "Arte, Catedral y Ciudad en la Edad Media Hispana","Al-Ándalus: Ciudades, Mezquitas y Palacios",
+              "Arte Español del Renacimiento","Velázquez","Arte Barroco Español","Arte Hispanoamericano en la Edad Moderna",
+              "Arte Contemporáneo Latinoamericano","Goya","Picasso","Arte Español Siglo XX","Prácticas Externas"]
   }
 };
 
-// ---------- Helper DOM ----------
-const cursosDiv = document.getElementById("cursos");
-const selItin = document.getElementById("itinerario");
-
-// Rellenar select itinerarios
-["",...Object.keys(itinerarios)].forEach(n=>{
-  const o=document.createElement("option");
-  o.value=n;
-  o.textContent=n||"Sin itinerario";
-  selItin.appendChild(o);
+const grid = document.getElementById('grid');
+const itinSel = document.getElementById('itin');
+Object.keys(itinerarios).forEach(n => {
+  const o = document.createElement('option');
+  o.value = n;
+  o.textContent = n;
+  itinSel.appendChild(o);
 });
 
-function makeAsignatura(txt){
-  const d=document.createElement("div");
-  d.className="asignatura";
-  d.textContent=txt;
-  d.onclick=()=>{d.classList.toggle("tachada");saveState();};
+function item(t) {
+  const d = document.createElement('div');
+  d.className = 'item';
+  d.textContent = t;
+  d.onclick = () => { d.classList.toggle('tach'); save(); };
   return d;
 }
-function makeSelect(opts){
-  const w=document.createElement("div");
-  w.className="opt-select";
-  const s=document.createElement("select");
-  const def=document.createElement("option");
-  def.textContent="Asignatura Optativa";def.disabled=true;def.selected=true;
+function opt(list) {
+  const w = document.createElement('div'); w.className = 'opt';
+  const s = document.createElement('select');
+  const def = document.createElement('option'); def.disabled = true; def.selected = true; def.textContent = 'Asignatura Optativa';
   s.appendChild(def);
-  opts.forEach(t=>{const op=document.createElement("option");op.value=t;op.textContent=t;s.appendChild(op);});
-  s.onchange=saveState;
-  w.appendChild(s);return w;
-}
-
-// ---------- Core ----------
-function buildMalla(){
-  cursosDiv.innerHTML="";
-  const nombre=selItin.value;
-  document.getElementById("nombre-itinerario").textContent = nombre?`Itinerario: ${nombre}`:"";
-
-  // clonar cursos base
-  const data=JSON.parse(JSON.stringify(baseCursos));
-  let opt3=1,opt4=9,opciones=optativasGeneral;
-
-  if(nombre && itinerarios[nombre]){
-      const it=itinerarios[nombre];
-      const mitad=Math.ceil(it.fijo.length/2);
-      data.tercero.push(...it.fijo.slice(0,mitad));
-      data.cuarto.push(...it.fijo.slice(mitad));
-      opt3=it.opt3;opt4=it.opt4;
-      if(it.especial)opciones=it.especial;
-  }
-
-  ["primero","segundo","tercero","cuarto"].forEach((curso,i)=>{
-     const cont=document.createElement("div");
-     cont.className=`curso ${curso}`;
-     cont.innerHTML=`<div class='titulo-curso'>${i+1}º Curso</div>`;
-     data[curso].forEach(a=>cont.appendChild(makeAsignatura(a)));
-     if(curso==="tercero")for(let k=0;k<opt3;k++)cont.appendChild(makeSelect(opciones));
-     if(curso==="cuarto"){
-        for(let k=0;k<opt4;k++)cont.appendChild(makeSelect(opciones));
-        cont.appendChild(makeAsignatura("Trabajo Fin de Grado (TFG)"));
-     }
-     cursosDiv.appendChild(cont);
+  list.forEach(t => {
+    const o = document.createElement('option');
+    o.value = o.textContent = t;
+    s.appendChild(o);
   });
-  loadState();
+  s.onchange = save; w.appendChild(s); return w;
 }
 
-// ---------- Persistencia ----------
-function saveState(){
-  const st=[];
-  document.querySelectorAll(".asignatura").forEach(el=>st.push({t:el.textContent,x:el.classList.contains("tachada")}));
-  document.querySelectorAll(".opt-select select").forEach(sel=>st.push({s:sel.value}));
-  localStorage.setItem("mallaArte",JSON.stringify(st));
-}
-function loadState(){
-  const st=JSON.parse(localStorage.getItem("mallaArte")||"[]");
-  let i=0;
-  document.querySelectorAll(".asignatura").forEach(el=>{if(st[i]?.x)el.classList.add("tachada");i++;});
-  document.querySelectorAll(".opt-select select").forEach(sel=>{
-    const m=st.find(o=>o.s===sel.value);
-    if(m)sel.value=m.s;
-  });
+function build() {
+  grid.innerHTML = "";
+  const itin = itinerarios[itinSel.value];
+  document.getElementById("nombre-itinerario").textContent = itinSel.value ? `Itinerario: ${itinSel.value}` : "";
+  const list = itin?.special || optativasGeneral;
+
+  // Primero y Segundo
+  ['primero','segundo'].forEach(c => addCurso(c, baseCursos[c]));
+  
+  // Tercero
+  const tercero = [...baseCursos.tercero.slice(0,9)];
+  const wrap3 = document.createElement('div');
+  wrap3.className = 'curso tercero';
+  wrap3.innerHTML = `<div class='titulo'>Tercero</div>`;
+  tercero.forEach(a => wrap3.appendChild(item(a)));
+  (itin?.fix3 || []).forEach(a => wrap3.appendChild(item(a)));
+  const o3 = itin?.opt3 ?? 1;
+  for (let i = 0; i < o3; i++) wrap3.appendChild(opt(list));
+  grid.appendChild(wrap3);
+
+  // Cuarto
+  const wrap4 = document.createElement('div');
+  wrap4.className = 'curso cuarto';
+  wrap4.innerHTML = `<div class='titulo'>Cuarto</div>`;
+  (itin?.fix4 || []).forEach(a => wrap4.appendChild(item(a)));
+  const o4 = itin?.opt4 ?? 9;
+  for (let i = 0; i < o4; i++) wrap4.appendChild(opt(list));
+  wrap4.appendChild(item("Trabajo Fin de Grado (TFG)"));
+  grid.appendChild(wrap4);
+
+  load();
 }
 
-// ---------- Controles ----------
-function resetMalla(){localStorage.removeItem("mallaArte");buildMalla();}
-function toggleTheme(){document.documentElement.toggleAttribute("data-theme","dark");}
+function addCurso(nombre, arr) {
+  const d = document.createElement('div');
+  d.className = `curso ${nombre}`;
+  d.innerHTML = `<div class='titulo'>${nombre.charAt(0).toUpperCase()+nombre.slice(1)}</div>`;
+  arr.forEach(a => d.appendChild(item(a)));
+  grid.appendChild(d);
+}
 
-// ---------- Eventos ----------
-document.addEventListener("DOMContentLoaded",buildMalla);
+function save() {
+  const state = [];
+  document.querySelectorAll('.item').forEach(e => state.push({ t: e.textContent, x: e.classList.contains('tach') }));
+  document.querySelectorAll('.opt select').forEach(s => state.push({ s: s.value }));
+  localStorage.setItem('mallaHDA', JSON.stringify(state));
+}
+function load() {
+  const st = JSON.parse(localStorage.getItem('mallaHDA') || '[]');
+  let i = 0;
+  document.querySelectorAll('.item').forEach(e => { if (st[i]?.x) e.classList.add('tach'); i++; });
+  document.querySelectorAll('.opt select').forEach(s => { const m = st.find(o => o.s === s.value); if (m) s.value = m.s; });
+}
+function reset() { localStorage.removeItem('mallaHDA'); build(); }
+function toggleTheme() { document.documentElement.toggleAttribute('data-theme','dark'); }
+
+build();
 </script>
 </body>
 </html>
