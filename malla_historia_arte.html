@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Interactiva – Historia del Arte</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg-color:#fffafc; --card-color:#ffffff; --text-color:#2b2b2b; --border-color:#d6d6d6; --hover:#fceef0; --accent-color:#fbb1bd; }
+    [data-theme="dark"] { --bg-color:#1c1c1e; --card-color:#2b2b2d; --text-color:#f3f3f3; --border-color:#444; --hover:#333336; --accent-color:#f88a99; }
+    *{box-sizing:border-box}
+    body{margin:0;padding:20px;font-family:'Quicksand',sans-serif;background:var(--bg-color);color:var(--text-color);}
+    h1{text-align:center;font-weight:700;margin:0 0 4px;font-size:2rem;color:var(--accent-color)}
+    h2#nombre-itinerario{text-align:center;font-weight:500;margin:0 0 20px;color:var(--text-color)}
+    .botonera{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-bottom:20px}
+    select,button{font:inherit;padding:10px 14px;border:2px solid var(--border-color);border-radius:12px;background:var(--card-color);color:var(--text-color);cursor:pointer}
+    button{background:var(--accent-color);color:#fff;font-weight:600}button:hover{opacity:0.9}
+    .grid-cursos{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .curso{border-radius:15px;padding:15px;background:var(--card-color);box-shadow:0 2px 6px rgba(0,0,0,.06);max-height:78vh;overflow-y:auto}
+    .titulo-curso{font-size:1.2rem;font-weight:600;margin-bottom:10px;color:var(--accent-color)}
+    .asignatura,.opt-select{margin:6px 0;padding:8px 10px;border:1px solid var(--border-color);border-radius:8px;background:var(--card-color);transition:.2s}
+    .asignatura{cursor:pointer;font-weight:500}.asignatura:hover{background:var(--hover)}.asignatura.tachada{text-decoration:line-through;color:#aaa}
+    .opt-select select{width:100%;border:none;background:transparent;color:inherit;font-weight:500}
+    .primero{background:#fff0f0}.segundo{background:#f0faff}.tercero{background:#f0fff5}.cuarto{background:#fffce6}
+    .tfg{background:#fde4f0;padding:10px;border-radius:10px;text-align:center;font-weight:600;margin-top:8px;color:var(--text-color)}
+    @media print{.botonera{display:none!important}}
+  </style>
+</head>
+<body>
+  <h1>Malla Grado Historia del Arte</h1>
+  <h2 id="nombre-itinerario"></h2>
+  <div class="botonera">
+    <select id="itinerario"></select>
+    <button id="btnActualizar">Actualizar</button>
+    <button id="btnReiniciar">Reiniciar</button>
+    <button id="btnTema">Tema</button>
+    <button id="btnPDF">Descargar PDF</button>
+  </div>
+  <div class="grid-cursos" id="cursos"></div>
+  <script>
+/* PLACEHOLDER: JS from earlier provided full block */
+  </script>
+</body>
+</html>
