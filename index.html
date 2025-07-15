@@ -41,17 +41,20 @@
 <script>
 const baseCursos = {
   primero: [
-    "Arte Griego","Arte de las Primeras Civilizaciones","Arte Romano","Historia Antigua","Historia del Pensamiento y de las Ideas",
-    "Estéticas I","Historia Medieval","Literatura Medieval","Literatura del Mundo Antiguo","Museografía y Museología"
+    "Arte Griego","Arte de las Primeras Civilizaciones","Arte Romano","Historia Antigua",
+    "Historia del Pensamiento y de las Ideas","Estéticas I","Historia Medieval","Literatura Medieval",
+    "Literatura del Mundo Antiguo","Museografía y Museología"
   ],
   segundo: [
-    "Arte Bizantino y Arte Islámico","Arte Tardoantiguo y Altomedieval","Historia Moderna","Idioma","Literatura Moderna",
-    "Arte de la Baja Edad Media","Historia del Pensamiento y de las Ideas Estéticas II","Historia Contemporánea","Inicios del Arte Moderno","Literatura Contemporánea"
+    "Arte Bizantino y Arte Islámico","Arte Tardoantiguo y Altomedieval","Historia Moderna","Idioma",
+    "Literatura Moderna","Arte de la Baja Edad Media","Historia del Pensamiento y de las Ideas Estéticas II",
+    "Historia Contemporánea","Inicios del Arte Moderno","Literatura Contemporánea"
   ],
   tercero: [
-    "Arte de la Ilustración y del Siglo XIX","Arte del Siglo XVI","Arte del Siglo XVII y Barroco Tardío","Fuentes de la Historia del Arte",
-    "Teoría y Metodología de la Historia del Arte","Arte de las Vanguardias","Arte desde 1945 a la actualidad","Historia del Cine",
-    "Patrimonio Histórico-Artístico y Gestión Cultural","Asignatura optativa"
+    "Arte de la Ilustración y del Siglo XIX","Arte del Siglo XVI","Arte del Siglo XVII y Barroco Tardío",
+    "Fuentes de la Historia del Arte","Teoría y Metodología de la Historia del Arte","Arte de las Vanguardias",
+    "Arte desde 1945 a la actualidad","Historia del Cine","Patrimonio Histórico-Artístico y Gestión Cultural",
+    "Asignatura optativa"
   ],
   cuarto: []
 };
@@ -61,10 +64,11 @@ const optativasGeneral = [
   "Arte Antiguo de la Península Ibérica","Arte Barroco Español","Arte, Catedral y Ciudad en la Edad Media Hispana",
   "Arte Contemporáneo Latinoamericano","Arte Español del Renacimiento","Arte Español Siglo XX",
   "Arte Hispanoamericano en la Edad Moderna","Arte de la India y Asia Oriental","Arte Indígena Americano",
-  "Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte y Sociedad en la Edad Moderna","Artes Suntuarias y del Libro en la Edad Media",
-  "Goya","Historia de la Arqueología y del Coleccionismo de Antigüedades","Historia de la Música I","Historia de la Música II",
-  "Iconografía Clásica","Iconografía Medieval","La Ciudad en la Antigüedad","Paleografía y Diplomática","Picasso",
-  "Pintura y Sociedad en la Edad Media","Velázquez","Prácticas Externas"
+  "Arte, Peregrinación y Monacato en la Edad Media Hispana","Arte y Sociedad en la Edad Moderna",
+  "Artes Suntuarias y del Libro en la Edad Media","Goya","Historia de la Arqueología y del Coleccionismo de Antigüedades",
+  "Historia de la Música I","Historia de la Música II","Iconografía Clásica","Iconografía Medieval",
+  "La Ciudad en la Antigüedad","Paleografía y Diplomática","Picasso","Pintura y Sociedad en la Edad Media",
+  "Velázquez","Prácticas Externas"
 ];
 
 const itinerarios = {
@@ -145,10 +149,8 @@ function build() {
   document.getElementById("nombre-itinerario").textContent = itinSel.value ? `Itinerario: ${itinSel.value}` : "";
   const list = itin?.special || optativasGeneral;
 
-  // Primero y Segundo
   ['primero','segundo'].forEach(c => addCurso(c, baseCursos[c]));
-  
-  // Tercero
+
   const tercero = [...baseCursos.tercero.slice(0,9)];
   const wrap3 = document.createElement('div');
   wrap3.className = 'curso tercero';
@@ -159,7 +161,6 @@ function build() {
   for (let i = 0; i < o3; i++) wrap3.appendChild(opt(list));
   grid.appendChild(wrap3);
 
-  // Cuarto
   const wrap4 = document.createElement('div');
   wrap4.className = 'curso cuarto';
   wrap4.innerHTML = `<div class='titulo'>Cuarto</div>`;
