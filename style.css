@@ -5,6 +5,8 @@
   --border: #d6d6d6;
   --hover: #fceef0;
   --accent: #fbb1bd;
+  --tached-bg: #fcd6e3;
+  --tached-text: #333;
 }
 [data-theme="dark"] {
   --bg: #1c1c1e;
@@ -13,6 +15,8 @@
   --border: #444;
   --hover: #333336;
   --accent: #f88a99;
+  --tached-bg: #3a2b30;
+  --tached-text: #fff;
 }
 * {
   box-sizing: border-box;
@@ -23,37 +27,41 @@ body {
   font-family: 'Quicksand', sans-serif;
   background: var(--bg);
   color: var(--txt);
-  padding: 10px;
+  padding: 16px;
   height: 100vh;
   overflow: hidden;
+  font-size: 16px;
+  line-height: 1.4;
 }
 h1 {
   color: var(--accent);
   text-align: center;
-  font-size: 1.6rem;
-  margin-bottom: 4px;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 #nombre-itinerario {
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 .botonera {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
-select, button {
-  padding: 6px 10px;
+select,
+button {
+  padding: 6px 12px;
   border: 2px solid var(--border);
   border-radius: 8px;
   background: var(--card);
   color: var(--txt);
   font: inherit;
   cursor: pointer;
+  font-size: 0.95rem;
 }
 button {
   background: var(--accent);
@@ -61,42 +69,47 @@ button {
   font-weight: 600;
 }
 button:hover {
-  opacity: .9;
+  opacity: 0.92;
 }
 .grid {
   display: flex;
-  gap: 10px;
-  height: calc(100vh - 150px);
+  gap: 12px;
+  height: calc(100vh - 160px);
   overflow-x: auto;
 }
 .curso {
   background: var(--card);
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,.05);
-  padding: 10px;
-  min-width: 230px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  padding: 12px;
+  min-width: 240px;
   width: 24%;
 }
 .titulo {
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 6px;
-  font-size: 1rem;
+  margin-bottom: 8px;
+  font-size: 1.05rem;
+  text-align: center;
 }
-.item, .opt {
-  margin: 4px 0;
-  padding: 6px 8px;
+.item,
+.opt {
+  margin: 5px 0;
+  padding: 7px 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--card);
   color: var(--txt);
-  transition: .2s;
+  transition: background 0.2s, color 0.2s;
+  font-size: 0.95rem;
 }
 .item:hover {
   background: var(--hover);
 }
-.item.tach {
-  color: #ffffff;
+.item.tach,
+.opt.tach {
+  background: var(--tached-bg);
+  color: var(--tached-text);
   text-decoration: line-through;
 }
 .opt select {
@@ -105,22 +118,40 @@ button:hover {
   background: transparent;
   color: inherit;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 .tfg {
   background: #fde4f0;
-  padding: 6px;
+  padding: 7px;
   border-radius: 6px;
   text-align: center;
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 6px;
+  font-size: 0.95rem;
 }
-@media(max-width:768px) {
-  body { overflow: auto; }
-  .grid { flex-direction: column; height: auto; overflow-x: hidden; }
-  .curso { width: 100%; }
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+  .grid {
+    flex-direction: column;
+    height: auto;
+    overflow-x: hidden;
+  }
+  .curso {
+    width: 100%;
+  }
 }
 @media print {
-  .botonera { display: none; }
-  .grid { overflow: visible; height: auto; }
-  body { overflow: visible; height: auto; }
+  .botonera {
+    display: none;
+  }
+  .grid {
+    overflow: visible;
+    height: auto;
+  }
+  body {
+    overflow: visible;
+    height: auto;
+  }
 }
