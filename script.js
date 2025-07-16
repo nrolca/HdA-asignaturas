@@ -71,7 +71,7 @@ const optativasGeneral = [
 ];
 
 const itinerarios = {
-  "Arte Antiguo": {
+  "Arte Antiguo y de las Primeras Civilizaciones": {
     fix3: [],
     opt3: 1,
     fix4: [
@@ -99,7 +99,7 @@ const itinerarios = {
     ],
     opt4: 1
   },
-  "Edad Moderna": {
+  "Arte de la Edad Moderna": {
     fix3: [],
     opt3: 1,
     fix4: [
@@ -127,7 +127,7 @@ const itinerarios = {
     ],
     opt4: 3
   },
-  "Museos": {
+  "Museos y Patrimonio Histórico-Artístico": {
     fix3: ["La Ciudad en la Antigüedad"],
     opt3: 0,
     fix4: [
@@ -143,7 +143,7 @@ const itinerarios = {
     ],
     opt4: 0
   },
-  "Arte Español": {
+  "Arte Español e Hispanoamericano": {
     fix3: [],
     opt3: 1,
     fix4: [],
