@@ -5,12 +5,12 @@ const baseCursos = {
     "Arte Griego",
     "Arte de las Primeras Civilizaciones",
     "Historia Antigua",
-    "Historia del Pensamiento y de las Ideas Estéticas I",
+    "Técnicas Artísticas y Conservación de Bienes Artísticos",
     "Literatura del Mundo Antiguo",
     "Arte Romano",
     "Historia Medieval",
     "Literatura Medieval",
-    "Técnicas Artísticas y Conservación de Bienes Artísticos",
+    "Historia del Pensamiento y de las Ideas Estéticas I",
     "Museografía y Museología"
   ],
   segundo: [
